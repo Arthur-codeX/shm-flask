@@ -4,12 +4,17 @@ from flask import Blueprint,jsonify,request
 student_bp=Blueprint("student",__name__)
 
 #routes and controller logic
-@student_bp.route("/student/add",methods=["POST"])
+@student_bp.route("/add",methods=["POST"])
 def add_user():
     print("Add user was hit")
-    return "Adding a user"
+    return "Adding a student",200
 
-@student_bp.route("/students",methods=["GET"])
+@student_bp.route("/edit",methods=["PUT"])
+def edit_student():
+    print("Add user was hit")
+    return "Edit a student"
+
+@student_bp.route("/list",methods=["GET"])
 def list_users():
     print("List Students")
     return "List All students"
