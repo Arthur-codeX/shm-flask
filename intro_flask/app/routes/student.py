@@ -3,6 +3,12 @@ from flask import Blueprint,jsonify,request
 #create student bluprint
 student_bp=Blueprint("student",__name__)
 
+
+@student_bp.route("/",methods=["GET"])
+def single_student():
+    print("Single student")
+    return "Single student"
+
 #routes and controller logic
 @student_bp.route("/add",methods=["POST"])
 def add_user():
