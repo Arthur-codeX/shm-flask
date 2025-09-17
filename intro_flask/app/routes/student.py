@@ -10,11 +10,50 @@ student_bp=Blueprint("student",__name__)
 
 UPLOAD_FOLDER="uploads"
 
+#dymaic route
+@student_bp.route("/single/<int:student_id>",methods=["GET"])
+def single_student(student_id):
+    
+    #   student=Student.query.filter_by(id=student_id).first()
+    student=Student.query.get(student_id)
+    
+    if not student:
+        return jsonify({"message":f"Studennt with id {student_id} does not exits"})
+    
+    return jsonify({
+         "id":student.id,
+         "name":student.name,
+         "email":student.email,
+         "created_at":student.created_at
+    })
 
-@student_bp.route("/",methods=["GET"])
-def single_student():
-    print("Single student")
-    return "Single student"
+#delete students: CREATE,READ,UPDATE , <DELETE STUDENT>
+@student_bp.route("/edit/<int:student_id>",methods=["PUT"])
+def edit_student(student_id):
+
+    student = Student.query.get(student_id)
+    
+    if not student:
+        return jsonify({"message":f"Studennt with id {student_id} does not exits"})
+    
+
+    data=request.get_json()
+
+    if "name" in data:
+        
+        student.name=data["name"]
+    
+    db.session.commit()
+
+    return jsonify({
+         "id":student.id,
+         "name":student.name,
+         "email":student.email,
+         "created_at":student.created_at
+    })
+
+
+
 
 #adding a student to our db
 #routes and controller logic
@@ -144,10 +183,7 @@ def serve_file(filename):
     uploads=os.path.join(cwd,"../../uploads")
     return send_from_directory(uploads,filename)
 
-@student_bp.route("/edit",methods=["PUT"])
-def edit_student():
-    print("Add user was hit")
-    return "Edit a student"
+
 
 @student_bp.route("/list",methods=["GET"])
 def list_users():
@@ -171,3 +207,6 @@ def list_users():
         "count":len(student_list)
     }),200
 
+#geting a single student
+#Updating student -> 
+# Reading then 
