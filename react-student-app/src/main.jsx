@@ -3,8 +3,10 @@ import { createRoot } from "react-dom/client";
 
 import "./index.css";
 
+import APP from "./APP";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <div className=" text-amber-950"> Hello world</div>
+    <APP/>
   </StrictMode>
 );

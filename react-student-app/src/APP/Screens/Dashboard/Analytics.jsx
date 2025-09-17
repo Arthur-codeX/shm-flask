@@ -1,7 +1,7 @@
 function Screen() {
   return (
     <div>
-      <h1>Login Screem</h1>
+      <h1>Analytics Screem</h1>
     </div>
   );
 }
