@@ -4,7 +4,9 @@ from dotenv import load_dotenv
 from flask_cors import CORS
 
 
+
 load_dotenv()
+
 
 app=create_app()
 
@@ -15,7 +17,4 @@ def home():
     return "My api is working"
 
 if __name__=='__main__':
-    
-    
-
     app.run(debug=True,port=5000)
