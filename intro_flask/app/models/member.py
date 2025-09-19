@@ -1,6 +1,8 @@
 from app.db import db
 from datetime import datetime,timezone
 
+
+
 def uct_now():
     return datetime.now(timezone.utc)
 
@@ -13,4 +15,6 @@ class Member(db.Model):
     password=db.Column(db.Text,nullable=False)
     created_at=db.Column(db.DateTime(timezone=True),default=uct_now,nullable=False)
 
+    #trak student create member
+  
 

@@ -4,6 +4,8 @@ from app.db import db
 import re
 import os
 from flask_bcrypt import Bcrypt
+from flask_jwt_extended import create_access_token
+from datetime import timedelta
 
 bcrypt=Bcrypt()
 #create student bluprint
@@ -60,4 +62,10 @@ def login_member():
     if not check_pass:
         return jsonify({"error":"Invalid email or password"}),401
     
-    return jsonify ({"message":"Login success"})
+    access_token=create_access_token(
+        identity={"id":member.id,"name":member.name},
+        expires_delta=timedelta(seconds=30)
+    )
+
+    return jsonify({"token":access_token}),200
+
