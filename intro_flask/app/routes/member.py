@@ -38,3 +38,26 @@ def add_member():
         }
     })
 
+@member_bp.route("/login",methods=["POST"])
+def login_member():
+    data=request.get_json() 
+
+    
+    email=data.get("email")
+    password=data.get("password") 
+
+    if not email or not password:
+        return jsonify({"error":"Email and passwor required"}),400
+    
+    member=Member.query.filter_by(email=email).first()
+
+    if not member:
+        return jsonify({"error":"Member not found"}),401
+    
+    #password=password
+    check_pass=bcrypt.check_password_hash(member.password,password)
+
+    if not check_pass:
+        return jsonify({"error":"Invalid email or password"}),401
+    
+    return jsonify ({"message":"Login success"})
